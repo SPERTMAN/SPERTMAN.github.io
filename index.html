@@ -2,22 +2,9 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>轻记</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无畏契约 - 抽卡界面</title>
     <style>
-        :root {
-            --primary-color: #7C4DFF;
-            --primary-light: #E8E3FF;
-            --text-color: #333333;
-            --text-light: #757575;
-            --bg-color: #FAFAFA;
-            --card-color: #FFFFFF;
-            --delete-color: #FF5252;
-            --border-radius: 12px;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -25,340 +12,435 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding: 16px;
-            max-width: 100%;
-            overflow-x: hidden;
-            line-height: 1.5;
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            margin: 20px auto;
+            background: #000;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.9);
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .time {
+            display: flex;
+            align-items: center;
+        }
+
+        .signal-battery {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .back-btn {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .share-btn {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .success-message {
             text-align: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 20px;
+            animation: fadeInDown 0.8s ease-out;
         }
 
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 4px;
+        .success-icon {
+            width: 40px;
+            height: 40px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            animation: bounceIn 1s ease-out;
         }
 
-        .header p {
+        .success-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4757;
+        }
+
+        .weapon-container {
+            position: relative;
+            margin: 20px;
+            padding: 40px 20px;
+            background: linear-gradient(45deg, rgba(255,71,87,0.1), rgba(255,71,87,0.05));
+            border: 2px solid #ff4757;
+            border-radius: 15px;
+            text-align: center;
+            animation: glowPulse 2s infinite alternate;
+        }
+
+        .weapon-image {
+            width: 250px;
+            height: 150px;
+            margin: 20px auto;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 150"><defs><linearGradient id="wandGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:%23c0c0c0"/><stop offset="30%" style="stop-color:%23ffffff"/><stop offset="70%" style="stop-color:%23e8e8e8"/><stop offset="100%" style="stop-color:%23d4af37"/></linearGradient><linearGradient id="gemGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23ff6b9d"/><stop offset="50%" style="stop-color:%23c44569"/><stop offset="100%" style="stop-color:%23f8b500"/></linearGradient><linearGradient id="orbGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23667eea"/><stop offset="50%" style="stop-color:%23764ba2"/><stop offset="100%" style="stop-color:%23f093fb"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="30" y="70" width="160" height="10" fill="url(%23wandGradient)" rx="5"/><rect x="25" y="72" width="15" height="6" fill="%23654321" rx="3"/><circle cx="200" cy="75" r="18" fill="url(%23orbGradient)" filter="url(%23glow)"/><polygon points="200,57 205,62 210,57 210,93 205,88 200,93" fill="url(%23gemGradient)" filter="url(%23glow)"/><circle cx="200" cy="75" r="12" fill="none" stroke="%23ffffff" stroke-width="1" opacity="0.6"/><circle cx="195" cy="70" r="2" fill="%23ffffff" opacity="0.8"/><circle cx="205" cy="80" r="1.5" fill="%23ffffff" opacity="0.6"/><path d="M 190 75 Q 200 65 210 75 Q 200 85 190 75" fill="none" stroke="%23ffd700" stroke-width="1" opacity="0.7"/></svg>') center/contain no-repeat;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+        }
+
+        .weapon-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0 5px 0;
+            color: #ffd700;
+        }
+
+        .weapon-description {
             font-size: 14px;
-            color: var(--text-light);
+            color: #ccc;
+            margin-bottom: 20px;
         }
 
-        .note-input-container {
-            background-color: var(--card-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 16px;
-            margin-bottom: 24px;
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4757;
+        }
+
+        .value {
+            font-size: 18px;
+            color: #4CAF50;
+        }
+
+        .upgrade-section {
+            margin: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+
+        .upgrade-title {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .upgrade-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .upgrade-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: rgba(255,71,87,0.2);
+            border: 1px solid #ff4757;
+            border-radius: 5px;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .note-input-container:focus-within {
-            box-shadow: 0 6px 16px rgba(124, 77, 255, 0.1);
-        }
-
-        .note-input {
-            width: 100%;
-            margin-bottom: 16px;
-        }
-
-        .note-input textarea {
-            width: 100%;
-            height: 120px;
-            padding: 0;
-            border: none;
-            font-size: 16px;
-            resize: none;
-            background: transparent;
-            outline: none;
-            color: var(--text-color);
-        }
-
-        .note-input textarea::placeholder {
-            color: var(--text-light);
-            opacity: 0.7;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-        }
-
-        button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        button:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        button.clear {
-            background-color: transparent;
-            color: var(--text-light);
-        }
-
-        .material-symbols-rounded {
-            font-size: 18px;
-        }
-
-        .notes-list {
-            margin-top: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .note-item {
-            background-color: var(--card-color);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            position: relative;
-            word-wrap: break-word;
-            transition: all 0.2s ease;
-            border-left: 3px solid var(--primary-color);
-        }
-
-        .note-item:hover {
+        .upgrade-btn:hover {
+            background: rgba(255,71,87,0.4);
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
         }
 
-        .note-content {
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        .note-item .delete {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            color: var(--text-light);
-            background: none;
+        .share-button {
+            margin: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff4757, #ff3742);
             border: none;
-            font-size: 20px;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            padding: 0;
-            margin: 0;
-            opacity: 0.5;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
         }
 
-        .note-item .delete:hover {
-            color: var(--delete-color);
-            opacity: 1;
+        .share-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255,71,87,0.3);
         }
 
-        .note-date {
-            font-size: 12px;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .empty-notes {
+        .owned-indicator {
             text-align: center;
-            color: var(--text-light);
-            margin-top: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
         }
 
-        .empty-notes .icon {
-            font-size: 48px;
-            color: var(--primary-light);
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary-color: #9E7DFF;
-                --primary-light: #3A2F5B;
-                --text-color: #E0E0E0;
-                --text-light: #9E9E9E;
-                --bg-color: #121212;
-                --card-color: #1E1E1E;
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 0 20px rgba(255,71,87,0.3);
+            }
+            100% {
+                box-shadow: 0 0 40px rgba(255,71,87,0.6);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .magic-aura {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, rgba(255,105,180,0.1) 50%, transparent 70%);
+            border-radius: 50%;
+            animation: auraGlow 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes auraGlow {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.6;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="phone-container">
+        <!-- 状态栏 -->
+        <div class="status-bar">
+            <div class="time">
+                <span>📱</span>
+                <span>08:51</span>
+            </div>
+            <div class="signal-battery">
+                <span>📶 5G</span>
+                <span>🔋 90</span>
+            </div>
+        </div>
+
+        <!-- 头部导航 -->
         <div class="header">
-            <h1>轻记</h1>
-            <p>简单记录，随时查看</p>
+            <div class="back-btn">←</div>
+            <div class="title">无畏契约</div>
+            <div class="share-btn">📤</div>
         </div>
-        
-        <div class="note-input-container">
-            <div class="note-input">
-                <textarea id="note-text" placeholder="写点什么..."></textarea>
-            </div>
-            
-            <div class="buttons">
-                <button id="clear-btn" class="clear">
-                    <span class="material-symbols-rounded">delete</span>清空
-                </button>
-                <button id="save-btn">
-                    <span class="material-symbols-rounded">add</span>保存
-                </button>
+
+        <!-- 成功消息 -->
+        <div class="success-message">
+            <div class="success-icon">✓</div>
+            <div class="success-text">购买成功！</div>
+        </div>
+
+        <!-- 武器展示区域 -->
+        <div class="weapon-container">
+            <div class="particles" id="particles"></div>
+            <div class="magic-aura"></div>
+            <div class="weapon-image"></div>
+            <div class="weapon-name">艾沃莉的魔法棒</div>
+            <div class="weapon-description">拥有的第 7 个皮肤</div>
+        </div>
+
+        <!-- 价格信息 -->
+        <div class="price-info">
+            <div class="price">3580 💎</div>
+            <div class="value">❤️ 想要<br>530k</div>
+        </div>
+
+        <!-- 升级选项 -->
+        <div class="upgrade-section">
+            <div class="upgrade-title">解锁状态</div>
+            <div class="upgrade-options">
+                <button class="upgrade-btn">Lv1 🔒</button>
+                <button class="upgrade-btn">Lv2 🔒</button>
+                <button class="upgrade-btn">炫彩2 🔒</button>
+                <button class="upgrade-btn">炫彩3 🔒</button>
             </div>
         </div>
-        
-        <div class="notes-list" id="notes-container">
-            <!-- 便签将在这里动态生成 -->
+
+        <!-- 分享按钮 -->
+        <button class="share-button" onclick="shareResult()">立即分享</button>
+
+        <!-- 已拥有提示 -->
+        <div class="owned-indicator">
+            <span>❌</span>
+            <div>已拥有</div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const noteText = document.getElementById('note-text');
-            const saveBtn = document.getElementById('save-btn');
-            const clearBtn = document.getElementById('clear-btn');
-            const notesContainer = document.getElementById('notes-container');
-            
-            // 自动调整文本区域高度
-            noteText.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            });
-            
-            // 从本地存储加载便签
-            loadNotes();
-            
-            // 保存便签
-            saveBtn.addEventListener('click', function() {
-                if (noteText.value.trim() !== '') {
-                    saveNote(noteText.value);
-                    noteText.value = '';
-                    noteText.style.height = 'auto';
-                    loadNotes();
-                }
-            });
-            
-            // 回车键保存（Ctrl+Enter）
-            noteText.addEventListener('keydown', function(e) {
-                if (e.ctrlKey && e.key === 'Enter') {
-                    if (noteText.value.trim() !== '') {
-                        saveNote(noteText.value);
-                        noteText.value = '';
-                        noteText.style.height = 'auto';
-                        loadNotes();
-                    }
-                }
-            });
-            
-            // 清空输入框
-            clearBtn.addEventListener('click', function() {
-                noteText.value = '';
-                noteText.style.height = 'auto';
-            });
-            
-            // 保存便签到本地存储
-            function saveNote(text) {
-                const notes = getNotes();
-                const newNote = {
-                    id: Date.now(),
-                    text: text,
-                    date: new Date().toLocaleString('zh-CN', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    })
-                };
-                notes.push(newNote);
-                localStorage.setItem('notes', JSON.stringify(notes));
+        // 创建粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+
+                    // 随机颜色：金色、粉色、紫色
+                    const colors = ['#ffd700', '#ff69b4', '#9370db', '#00ffff'];
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                    // 随机大小
+                    const size = Math.random() * 4 + 2;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    particle.style.animationDuration = (Math.random() * 2 + 1) + 's';
+
+                    particlesContainer.appendChild(particle);
+
+                    // 3秒后移除粒子
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 3000);
+                }, i * 80);
             }
-            
-            // 从本地存储获取便签
-            function getNotes() {
-                const notes = localStorage.getItem('notes');
-                return notes ? JSON.parse(notes) : [];
-            }
-            
-            // 加载并显示便签
-            function loadNotes() {
-                const notes = getNotes();
-                notesContainer.innerHTML = '';
-                
-                if (notes.length === 0) {
-                    notesContainer.innerHTML = `
-                        <div class="empty-notes">
-                            <span class="material-symbols-rounded icon">note_stack</span>
-                            <p>暂无记录，开始添加吧</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                // 按时间倒序排列
-                notes.sort((a, b) => b.id - a.id);
-                
-                notes.forEach(note => {
-                    const noteElement = document.createElement('div');
-                    noteElement.className = 'note-item';
-                    noteElement.innerHTML = `
-                        <button class="delete" data-id="${note.id}">
-                            <span class="material-symbols-rounded">close</span>
-                        </button>
-                        <div class="note-content">${note.text.replace(/\n/g, '<br>')}</div>
-                        <div class="note-date">
-                            <span class="material-symbols-rounded">schedule</span>${note.date}
-                        </div>
-                    `;
-                    notesContainer.appendChild(noteElement);
-                    
-                    // 添加删除事件
-                    const deleteBtn = noteElement.querySelector('.delete');
-                    deleteBtn.addEventListener('click', function() {
-                        deleteNote(note.id);
-                        loadNotes();
-                    });
-                });
-            }
-            
-            // 删除便签
-            function deleteNote(id) {
-                let notes = getNotes();
-                notes = notes.filter(note => note.id !== id);
-                localStorage.setItem('notes', JSON.stringify(notes));
-            }
+        }
+
+        // 分享功能
+        function shareResult() {
+            alert('🎉 恭喜获得稀有武器皮肤！\n\n📱 分享到社交媒体\n💬 告诉朋友你的好运气！');
+        }
+
+        // 升级按钮点击事件
+        document.querySelectorAll('.upgrade-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('🔒 需要更多材料来解锁此升级！');
+            });
+        });
+
+        // 页面加载完成后创建粒子效果
+        window.addEventListener('load', () => {
+            createParticles();
+            // 每5秒重新创建粒子效果
+            setInterval(createParticles, 5000);
+        });
+
+        // 添加点击音效模拟
+        document.addEventListener('click', () => {
+            // 这里可以添加音效播放代码
+            console.log('🔊 点击音效');
         });
     </script>
 </body>
-</html> 
+</html>
